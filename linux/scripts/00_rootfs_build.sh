@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 ########################################################################
-##
-##
-## Build rootfs
+# This script is used to build A64 Linux rootfs.
+# by: Qitas
+# Date: 2019-03-26
 ########################################################################
 if [ -z $ROOT ]; then
 	ROOT=`cd .. && pwd`
@@ -48,7 +48,7 @@ if [ "$(ls -A -Ilost+found $DEST)" ]; then
 fi
 
 if [ -z "$DISTRO" ]; then
-	DISTRO="xenial"
+	DISTRO="bionic"
 fi
 
 TEMP=$(mktemp -d)
@@ -73,8 +73,8 @@ case $DISTRO in
 	arch)
 		ROOTFS="http://archlinuxarm.org/os/ArchLinuxARM-aarch64-latest.tar.gz"
 		;;
-	xenial)
-		ROOTFS="http://cdimage.ubuntu.com/ubuntu-base/xenial/daily/current/xenial-base-arm64.tar.gz"
+	ubuntu)
+		ROOTFS="http://cdimage.ubuntu.com/ubuntu-base/bionic/daily/current/bionic-base-arm64.tar.gz"
 		;;
 	sid|jessie)
 		ROOTFS="${DISTRO}-base-arm64.tar.gz"
@@ -288,10 +288,10 @@ case $DISTRO in
 		mv "$DEST/etc/resolv.conf.dist" "$DEST/etc/resolv.conf"
 		sed -i 's|#CheckSpace|CheckSpace|' "$DEST/etc/pacman.conf"
 		;;
-	xenial|sid|jessie)
+	bionic|sid|jessie)
 		rm "$DEST/etc/resolv.conf"
 		cp /etc/resolv.conf "$DEST/etc/resolv.conf"
-		if [ "$DISTRO" = "xenial" ]; then
+		if [ "$DISTRO" = "bionic" ]; then
 			DEB=ubuntu
 			DEBUSER=orangepi
 			EXTRADEBS="software-properties-common zram-config ubuntu-minimal"

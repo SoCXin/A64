@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 ##########################################
-# This script is used to build H6 Linux.
+# This script is used to build A64 Linux.
 # by: Qitas
 # Date: 2019-03-26
 ##########################################
@@ -179,9 +179,9 @@ if [ $OPTION = "0" -o $OPTION = "1" ]; then
 	MENUSTR="Distro Options"
 	OPTION=$(whiptail --title "A64 Build System" \
 		--menu "$MENUSTR" 20 60 5 --cancel-button Finish --ok-button Select \
-		"0"   "ArchLinux" \
-		"1"   "Ubuntu Xenial" \
-		"2"	  "Debian Sid" \
+		"0"   "Arch" \
+		"1"   "Ubuntu" \
+		"2"   "Debian Sid" \
 		"3"   "Debian Jessie" \
 		"4"   "CentOS" \
 		3>&1 1>&2 2>&3)
@@ -201,7 +201,7 @@ if [ $OPTION = "0" -o $OPTION = "1" ]; then
 	if [ $OPTION = "0" ]; then
 		TMP_DISTRO="arch"
 	elif [ $OPTION = "1" ]; then
-		TMP_DISTRO="xenial"	
+		TMP_DISTRO="ubuntu"	
 	elif [ $OPTION = "2" ]; then
 		TMP_DISTRO="sid"
 	elif [ $OPTION = "3" ]; then
