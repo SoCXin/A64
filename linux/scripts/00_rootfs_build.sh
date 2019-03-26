@@ -70,11 +70,11 @@ UNTAR="bsdtar -xpf"
 METHOD="download"
 
 case $DISTRO in
-	arch)
-		ROOTFS="http://archlinuxarm.org/os/ArchLinuxARM-aarch64-latest.tar.gz"
-		;;
 	ubuntu)
 		ROOTFS="http://cdimage.ubuntu.com/ubuntu-base/bionic/daily/current/bionic-base-arm64.tar.gz"
+		;;
+	arch)
+		ROOTFS="http://archlinuxarm.org/os/ArchLinuxARM-aarch64-latest.tar.gz"
 		;;
 	sid|jessie)
 		ROOTFS="${DISTRO}-base-arm64.tar.gz"

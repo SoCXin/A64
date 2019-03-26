@@ -101,15 +101,6 @@ if [ ! -d $ROOT/output ]; then
     mkdir -p $ROOT/output
 fi
 
-MENUSTR="Welcome to A64 Build System. Pls choose Platform."
-##########################################
-OPTION=$(whiptail --title "A64 Build System" \
-	--menu "$MENUSTR" 10 60 2 --cancel-button Exit --ok-button Select \
-	"0"  "A64 Win" \
-	"1"  "A64 3(internal version)" \
-	3>&1 1>&2 2>&3)
-
-
 export PLATFORM="winA64"
 
 ##########################################
@@ -179,8 +170,8 @@ if [ $OPTION = "0" -o $OPTION = "1" ]; then
 	MENUSTR="Distro Options"
 	OPTION=$(whiptail --title "A64 Build System" \
 		--menu "$MENUSTR" 20 60 5 --cancel-button Finish --ok-button Select \
-		"0"   "Arch" \
-		"1"   "Ubuntu" \
+		"0"   "Ubuntu"\		
+		"1"   "Arch" \
 		"2"   "Debian Sid" \
 		"3"   "Debian Jessie" \
 		"4"   "CentOS" \
@@ -198,9 +189,9 @@ if [ $OPTION = "0" -o $OPTION = "1" ]; then
 		./kernel_compile.sh
 		cd -
 	fi
-	if [ $OPTION = "0" ]; then
+	if [ $OPTION = "1" ]; then
 		TMP_DISTRO="arch"
-	elif [ $OPTION = "1" ]; then
+	elif [ $OPTION = "0" ]; then
 		TMP_DISTRO="ubuntu"	
 	elif [ $OPTION = "2" ]; then
 		TMP_DISTRO="sid"
