@@ -30,4 +30,7 @@
 
 linux系统构建资源
 
+##### [linux编译依赖](https://github.com/sochub/aarch-linux)
+
+
 ##  [SoC开发平台](http://www.qitas.cn)   
