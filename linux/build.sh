@@ -44,7 +44,7 @@ function get_kerntool()
 }
 
 ## Check cross tools
-if [ ! -d $ROOT/toolchain ]; then
+if [ ! -d $ROOT/toolchain/gcc-linaro-aarch -o ! -d $ROOT/toolchain/arm-linux-gnueabi ]; then
 	mkdir -p $ROOT/toolchain
 	git_configure
 	get_kerntool
