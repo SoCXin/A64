@@ -11,6 +11,52 @@ export BOOT_PATH
 export ROOTFS_PATH
 export UBOOT_PATH
 
+function git_configure()
+{
+    export GIT_CURL_VERBOSE=1
+    export GIT_TRACE_PACKET=1
+    export GIT_TRACE=1    
+}
+
+
+ubootool="https://codeload.github.com/sochub/arm-linux-eabi/zip/master"
+
+function get_ubootool()
+{
+    if [ ! -d $ROOT/toolchain/arm-linux-gnueabi ]; then
+        curl -C - -o $ROOT/toolchain/.tmp_ubootool $ubootool
+        unzip $ROOT/toolchain/.tmp_ubootool
+        mv $ROOT/toolchain/.tmp_ubootool/arm-linux-eabi-master/gcc-arm-linux/* $ROOT/toolchain/arm-linux-gnueabi/
+        rm -rf $ROOT/toolchain/.tmp_ubootool
+    fi
+}
+
+kerntool="https://codeload.github.com/sochub/aarch-linux/zip/master"
+
+function get_kerntool()
+{
+    if [ ! -d $ROOT/toolchain/gcc-linaro-aarch ]; then
+        curl -C - -o $ROOT/toolchain/.tmp_kerntool $kerntool
+        unzip $ROOT/toolchain/.tmp_kerntool
+        mv $ROOT/toolchain/.tmp_kerntool/aarch-linux-master/gcc-linaro-aarch/* $ROOT/toolchain/gcc-linaro-aarch/
+        rm -rf $ROOT/toolchain/.tmp_kerntool
+    fi
+}
+
+## Check cross tools
+if [ ! -d $ROOT/toolchain ]; then
+	mkdir -p $ROOT/toolchain
+	git_configure
+	get_kerntool
+	get_ubootool
+	apt -y --no-install-recommends --fix-missing install \
+	bsdtar mtools u-boot-tools pv bc \
+	gcc automake make \
+	lib32z1 lib32z1-dev qemu-user-static \
+	dosfstools
+fi
+
+
 Udisk_P()
 {
 	cd $ROOT/scripts
@@ -101,13 +147,15 @@ if [ ! -d $ROOT/output ]; then
     mkdir -p $ROOT/output
 fi
 
+
+
 export PLATFORM="winA64"
 
 ##########################################
 ## Root Password check
 for ((i = 0; i < 5; i++)); do
 	PASSWD=$(whiptail --title "A64 Build System" \
-		--passwordbox "Enter your root password. Note! Don't use root to run this scripts" \
+		--passwordbox "Enter root password instead of using sudo to run this!" \
 		10 60 3>&1 1>&2 2>&3)
 	
 	if [ $i = "4" ]; then
@@ -129,20 +177,6 @@ done
 
 echo $PASSWD | sudo ls &> /dev/null 2>&1
 
-## Check cross tools
-if [ ! -d $ROOT/toolchain/gcc-linaro-aarch ]; then
-	cd $SCRIPTS
-	./install_toolchain.sh
-	cd -
-fi
-
-## prepare development tools
-if [ ! -f $ROOT/output/.tmp_toolchain ]; then
-	cd $SCRIPTS
-	sudo ./Prepare_toolchain.sh
-	touch $ROOT/output/.tmp_toolchain
-	cd -
-fi
 
 MENUSTR="Pls select build option"
 
