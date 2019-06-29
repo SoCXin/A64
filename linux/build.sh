@@ -11,35 +11,6 @@ export BOOT_PATH
 export ROOTFS_PATH
 export UBOOT_PATH
 
-function git_configure()
-{
-    export GIT_CURL_VERBOSE=1
-    export GIT_TRACE_PACKET=1
-    export GIT_TRACE=1    
-}
-function gcc_prepare()
-{ 
-	sudo apt -y --no-install-recommends --fix-missing install \
-	bsdtar mtools u-boot-tools pv bc \
-	gcc automake make \
-	lib32z1 lib32z1-dev qemu-user-static \
-	dosfstools
-}
-
-function get_toolchain()
-{ 
-	if [ ! -d $ROOT/toolchain/gcc-linaro-aarch ]; then
-		cd $ROOT
-		git clone --depth=1 https://github.com/sochub/aarch-linux.git
-		mv aarch-linux toolchain
-    	fi
-	if [ ! -d $ROOT/toolchain/gcc-linaro-aarch/gcc-linaro ]; then
-		cd $ROOT/toolchain/gcc-linaro-aarch
-		git clone --depth=1 https://github.com/sochub/arm-linux-eabi.git
-		mv arm-linux-eabi gcc-linaro
-    	fi
-}
-
 
 Udisk_P()
 {
@@ -127,19 +98,47 @@ ROOTFS_check()
 	done
 }
 
-git_configure
-gcc_prepare
-
 if [ ! -d $ROOT/output ]; then
     mkdir -p $ROOT/output
 fi
 
+function git_configure()
+{
+    export GIT_CURL_VERBOSE=1
+    export GIT_TRACE_PACKET=1
+    export GIT_TRACE=1    
+}
+function gcc_prepare()
+{ 
+	sudo apt -y --no-install-recommends --fix-missing install \
+	bsdtar mtools u-boot-tools pv bc \
+	gcc automake make \
+	lib32z1 lib32z1-dev qemu-user-static \
+	dosfstools
+}
+
+function get_toolchain()
+{ 
+	if [ ! -d $ROOT/toolchain/gcc-linaro-aarch ]; then
+		cd $ROOT
+		git clone --depth=1 https://github.com/sochub/aarch-linux.git
+		mv aarch-linux toolchain
+    	fi
+	if [ ! -d $ROOT/toolchain/gcc-linaro-aarch/gcc-linaro ]; then
+		cd $ROOT/toolchain/gcc-linaro-aarch
+		git clone --depth=1 https://github.com/sochub/arm-linux-eabi.git
+		mv arm-linux-eabi gcc-linaro
+    	fi
+}
+
+git_configure
+gcc_prepare
 if [ ! -d $ROOT/toolchain ]; then
 	get_toolchain
 fi
 
-export PLATFORM="OrangePiA64_Win"
-#export PLATFORM="winA64"
+#export PLATFORM="OrangePiA64_Win"
+export PLATFORM="winA64"
 
 ##########################################
 ## Root Password check
@@ -167,12 +166,12 @@ done
 
 echo $PASSWD | sudo ls &> /dev/null 2>&1
 
-
+MENUSTR="Pls select build option"
 OPTION=$(whiptail --title "A64 Build System" \
 	--menu "$MENUSTR" 20 60 12 --cancel-button Finish --ok-button Select \
 	"0"   "Build Release Image" \
 	"1"   "Build Rootfs" \
-	"2"   "Build Uboot" \
+	"2"	  "Build Uboot" \
 	"3"   "Build Linux" \
 	"4"   "Build Kernel only" \
 	"5"   "Build Module only" \
@@ -190,11 +189,11 @@ if [ $OPTION = "0" -o $OPTION = "1" ]; then
 	TMP=$OPTION
 	TMP_DISTRO=""
 	MENUSTR="Distro Options"
-	OPTION=$(whiptail --title "A64 Build System" \
+	OPTION=$(whiptail --title "OrangePi Build System" \
 		--menu "$MENUSTR" 20 60 5 --cancel-button Finish --ok-button Select \
-		"0"   "Ubuntu"\		
-		"1"   "Arch" \
-		"2"   "Debian Sid" \
+		"0"   "Arch Linux" \
+		"1"   "Ubuntu Xenial" \
+		"2"	  "Debian Sid" \
 		"3"   "Debian Jessie" \
 		"4"   "CentOS" \
 		3>&1 1>&2 2>&3)
@@ -211,9 +210,9 @@ if [ $OPTION = "0" -o $OPTION = "1" ]; then
 		./kernel_compile.sh
 		cd -
 	fi
-	if [ $OPTION = "1" ]; then
+	if [ $OPTION = "0" ]; then
 		TMP_DISTRO="arch"
-	elif [ $OPTION = "0" ]; then
+	elif [ $OPTION = "1" ]; then
 		TMP_DISTRO="ubuntu"	
 	elif [ $OPTION = "2" ]; then
 		TMP_DISTRO="sid"
