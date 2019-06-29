@@ -127,15 +127,19 @@ ROOTFS_check()
 	done
 }
 
+git_configure
+gcc_prepare
+
 if [ ! -d $ROOT/output ]; then
     mkdir -p $ROOT/output
 fi
 
-git_configure
-gcc_prepare
-get_toolchain
+if [ ! -d $ROOT/toolchain ]; then
+	get_toolchain
+fi
 
-export PLATFORM="winA64"
+export PLATFORM="OrangePiA64_Win"
+#export PLATFORM="winA64"
 
 ##########################################
 ## Root Password check
@@ -168,7 +172,7 @@ OPTION=$(whiptail --title "A64 Build System" \
 	--menu "$MENUSTR" 20 60 12 --cancel-button Finish --ok-button Select \
 	"0"   "Build Release Image" \
 	"1"   "Build Rootfs" \
-	"2"	  "Build Uboot" \
+	"2"   "Build Uboot" \
 	"3"   "Build Linux" \
 	"4"   "Build Kernel only" \
 	"5"   "Build Module only" \
