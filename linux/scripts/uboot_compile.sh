@@ -64,7 +64,7 @@ cp -avf $UBOOT/u-boot-sun50iw1p1.bin $BUILD/u-boot.bin
 dtc -Odtb -o $BUILD/orangepi.dtb $ROOT/kernel/arch/arm64/boot/dts/${PLATFORM}.dts 
 
 # Build sys_config.bin
-unix2dos $BUILD/sys_config.fex
+todos $BUILD/sys_config.fex
 $MERGE_TOOLS/script $BUILD/sys_config.fex
 
 # Change path to hold current envirnoment
