@@ -125,19 +125,13 @@ function get_toolchain()
 		mv aarch-linux toolchain
     	fi
 	if [ ! -d $ROOT/toolchain/gcc-linaro-aarch/gcc-linaro ]; then
-		cd $ROOT/toolchain/gcc-linaro-aarch
-		git clone --depth=1 https://github.com/sochub/arm-linux-eabi.git
-		mv arm-linux-eabi gcc-linaro
+		cd $ROOT/toolchain
+		git clone --depth=1 https://github.com/sochub/arm-linux-eabihf.git
+		mv arm-linux-eabihf/gcc-linaro .
     	fi
 }
 
-git_configure
-gcc_prepare
-if [ ! -d $ROOT/toolchain ]; then
-	get_toolchain
-fi
 
-#export PLATFORM="OrangePiA64_Win"
 export PLATFORM="winA64"
 
 ##########################################
@@ -165,6 +159,12 @@ EOF
 done
 
 echo $PASSWD | sudo ls &> /dev/null 2>&1
+
+git_configure
+gcc_prepare
+if [ ! -d $ROOT/toolchain ]; then
+	get_toolchain
+fi
 
 MENUSTR="Pls select build option"
 OPTION=$(whiptail --title "A64 Build System" \
