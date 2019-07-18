@@ -1,16 +1,12 @@
-﻿# [全志A64](https://github.com/mcuyun/A64) 
-
+﻿# [全志 A64](https://github.com/sochub/A64) 
 [![sites](SoC/SoC.png)](http://www.qitas.cn) 
-
-####  qitas@qitas.cn
-
-#### [ARM cortex A53](https://github.com/sochub/CA53)
-
-#### [开发工具集](https://github.com/sochub/toolchain)
+#### 厂商：[allwinner](https://github.com/sochub/allwinner) 
+#### 架构：[cortex A53](https://github.com/sochub/CA53)
+#### 收录芯片定级：[Level](https://github.com/sochub/Level)
 
 ## [描述](https://github.com/sochub/A64/wiki) 
 
-珠海全志cortex A53四核64位处理器，最早将价格推进到5美元以下的4核64位CPU
+珠海全志[allwinner](https://github.com/sochub/allwinner) cortex A53四核64位应用处理器，最早将价格推进到5美元以下的4核64位CPU
 
 产品本身无太多亮点，芯片的外设配置极简
 
@@ -25,12 +21,19 @@
 #### [docs](docs/)
 
 参考设计和数据手册
+### [收录资源](https://github.com/sochub/STM8L051)
 
-#### [linux](linux/)
+* [文档](docs/)
+* [linux](linux/)
 
-linux系统构建资源
+### [关联资源](https://github.com/sochub)
 
-##### [linux编译依赖](https://github.com/sochub/aarch-linux)
+* [aarch-linux编译](https://github.com/sochub/aarch-linux)
+* [arm-linux-eabihf编译](https://github.com/sochub/arm-linux-eabihf)
 
+### [选型建议](https://github.com/sochub)
 
-##  [SoC开发平台](http://www.qitas.cn)   
+[全志A64](https://github.com/sochub/A64) 发布较早，简单
+
+##  [SoC资源平台](http://www.qitas.cn)  
+
