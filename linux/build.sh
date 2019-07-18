@@ -112,7 +112,7 @@ function gcc_prepare()
 { 
 	sudo apt -y --no-install-recommends --fix-missing install \
 	bsdtar mtools u-boot-tools pv bc \
-	gcc automake make \
+	gcc automake make tofrodos\
 	lib32z1 lib32z1-dev qemu-user-static \
 	dosfstools
 }

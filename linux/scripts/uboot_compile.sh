@@ -11,7 +11,7 @@ if [ -z $ROOT ]; then
 fi
 # PLATFORM.
 if [ -z $PLATFORM ]; then
-	PLATFORM="OrangePiA64_Win"
+	PLATFORM="winA64"
 fi
 # Uboot direct
 UBOOT=$ROOT/uboot
