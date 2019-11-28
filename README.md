@@ -3,18 +3,14 @@
 [![sites](http://182.61.61.133/link/resources/SoC.png)](http://www.qitas.cn) 
 
 #### [Vendor](https://github.com/sochub/Vendor)：[allwinner](https://github.com/sochub/allwinner) 
-#### [MIPS](https://github.com/sochub/MIPS)：[cortex A53](https://github.com/sochub/CA53)
+#### [ARM](https://github.com/sochub/ARM)：[cortex A53](https://github.com/sochub/CA53)
 #### [Level](https://github.com/sochub/Level)：
 
 ## [芯片描述](https://github.com/sochub/A64/wiki) 
 
 珠海全志 [allwinner](https://github.com/sochub/allwinner) cortex A53四核64位应用处理器，最早将价格推进到5美元以下的4核64位CPU，产品本身无太多亮点，芯片的外设配置极简
 
-主要特点：性价比
-
-功能特点：接口数量
-
-主要短板：发布已很久
+主要特点：性价比和存量市场
 
 器件封装：BGA396 15mm x 15mm （0.65mm pitch）
 
